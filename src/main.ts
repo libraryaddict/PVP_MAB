@@ -56,7 +56,7 @@ export function main(argstring = ""): void {
         break;
       }
 
-      if (parseResult) {
+      if (parseResult(result)) {
         set("todaysPVPWins", (todaysWins += 1));
         set("totalSeasonPVPWins", (seasonWins += 1));
       } else {
