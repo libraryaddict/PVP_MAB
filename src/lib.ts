@@ -121,7 +121,7 @@ export function breakStone(): void {
 export function updateSeason(): void {
   const currentSeason = Array.from(
     visitUrl("peevpee.php?place=rules").match(
-      RegExp(/<b>Current Season: <\/b>(.*?)( \\(Post-Season\\))?<br \/>/)
+      RegExp(/<b>Current Season: <\/b>(.*?)( \(Post-Season\))?<br \/>/)
     ) ?? ["", "0"]
   )[1];
 
@@ -139,7 +139,6 @@ export function updateSeason(): void {
   pvpIDs.forEach((i) => {
     set(`myCurrentPVPWins_${i}`, 7);
     set(`myCurrentPVPLosses_${i}`, 7);
-    set(`myCurrentPVPMini_${i}`, "");
     set(`myCurrentPVPMini_${i}`, activeMinisSorted[i]);
   });
 
