@@ -65,11 +65,12 @@ export function initializeSortedPvpIDs(): void {
 
 export const verbose = !get("PVP_MAB_reduced_verbosity", false);
 
-export function getFightRecords(): number[][] {
+// We add 7 to wins & losses for math reasons, as mentioned here: https://github.com/Pantocyclus/PVP_MAB/issues/8#issuecomment-4013324340
+export function getMutatedFightRecords(): number[][] {
   return pvpIDs.map((i) => {
     const wins = get(`myCurrentPVPWins_${i}`, 0);
     const losses = get(`myCurrentPVPLosses_${i}`, 0);
-    return [wins, losses];
+    return [wins + 7, losses + 7];
   });
 }
 
@@ -135,10 +136,10 @@ export function updateSeason(): void {
     throw new Error("We cannot update the season until you've broken your stone!");
   if (pvpIDs.length === 0) throw new Error("There are current no valid PVP minis!");
 
-  // Reset wins and losses (pad all at 7 wins 7 losses [prime numbers good])
+  // Reset wins and losses
   pvpIDs.forEach((i) => {
-    set(`myCurrentPVPWins_${i}`, 7);
-    set(`myCurrentPVPLosses_${i}`, 7);
+    set(`myCurrentPVPWins_${i}`, 0);
+    set(`myCurrentPVPLosses_${i}`, 0);
     set(`myCurrentPVPMini_${i}`, activeMinisSorted[i]);
   });
 
@@ -208,7 +209,7 @@ export function printStats(): void {
 }
 
 export function printStrategiesEstimates(): void {
-  const fightRecords = getFightRecords();
+  const fightRecords = getMutatedFightRecords();
   const t = Math.max(1, sumNumbers(fightRecords.map(([wins, losses]) => wins + losses)));
   const logConst = 2 * Math.log(t);
   // const Exp3Ls = pvpIDs.map((i) => get(`myCurrentPVPMiniExp3Weight_${i}`, 1.0));
