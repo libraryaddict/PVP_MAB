@@ -38,7 +38,9 @@ export function main(argstring = ""): void {
   updateWinRate();
 
   let todaysWins = get("todaysPVPWins", 0),
-    todaysLosses = get("todaysPVPLosses", 0);
+    todaysLosses = get("todaysPVPLosses", 0),
+    seasonWins = get("totalSeasonPVPWins", 0),
+    seasonLosses = get("totalSeasonPVPLosses", 0);
 
   if (pvpAttacksLeft() > 0) {
     initializeSortedPvpIDs();
@@ -53,9 +55,14 @@ export function main(argstring = ""): void {
         print("Could not find anyone to fight!", "red");
         break;
       }
-      parseResult(result)
-        ? set("todaysPVPWins", (todaysWins += 1))
-        : set("todaysPVPLosses", (todaysLosses += 1));
+
+      if (parseResult) {
+        set("todaysPVPWins", (todaysWins += 1));
+        set("totalSeasonPVPWins", (seasonWins += 1));
+      } else {
+        set("todaysPVPLosses", (todaysLosses += 1));
+        set("totalSeasonPVPLosses", (seasonLosses += 1));
+      }
     }
     set("logPreferenceChange", prefChangeSettings);
   } else {
