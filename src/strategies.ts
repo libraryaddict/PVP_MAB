@@ -5,7 +5,7 @@ import {
   activeMinisSorted,
   // getExp3IXProbabilities,
   // getExp3Probabilities,
-  getFightRecords,
+  getMutatedFightRecords,
   pvpIDs,
   // sampleProbabilitiesIdx,
   sortedPvpIDs,
@@ -15,7 +15,7 @@ import { args } from "./args";
 
 export function UCB(): number {
   if (args.debug) print("Using UCB strategy", "blue");
-  const fightRecords = getFightRecords();
+  const fightRecords = getMutatedFightRecords();
   const t = Math.max(1, sumNumbers(fightRecords.map(([wins, losses]) => wins + losses)));
   const logConst = 2 * Math.log(t);
   const payoffs = pvpIDs.map((i) => {
@@ -30,7 +30,7 @@ export function UCB(): number {
 
 export function gaussianThompson(): number {
   if (args.debug) print("Using Gaussian Thompson strategy", "blue");
-  const fightRecords = getFightRecords();
+  const fightRecords = getMutatedFightRecords();
   const payoffs = pvpIDs.map((i) => {
     const [wins, losses] = fightRecords[i];
     const n = wins + losses;
@@ -43,7 +43,7 @@ export function gaussianThompson(): number {
 
 export function bernoulliThompson(): number {
   if (args.debug) print("Using Bernoulli Thompson strategy", "blue");
-  const fightRecords = getFightRecords();
+  const fightRecords = getMutatedFightRecords();
   const payoffs = pvpIDs.map((i) => {
     const [wins, losses] = fightRecords[i];
     const payoff = sampleBeta(wins, losses);
@@ -55,7 +55,7 @@ export function bernoulliThompson(): number {
 
 export function epsilonGreedy(): number {
   if (args.debug) print("Using Epsilon Greedy strategy", "blue");
-  const fightRecords = getFightRecords();
+  const fightRecords = getMutatedFightRecords();
   const t = Math.max(1, sumNumbers(fightRecords.map(([wins, losses]) => wins + losses)));
   const payoffs = pvpIDs.map((i) => {
     const [wins, losses] = fightRecords[i];
