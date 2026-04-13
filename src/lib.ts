@@ -190,8 +190,8 @@ export function pvpAttack(attackType: string): string {
     `peevpee.php?action=fight&place=fight&ranked=${
       args.ranked ? 2 : 1
     }&stance=${pvpChoice}&attacktype=${attackType}&losemessage=${urlEncode(
-      args.lossMessage
-    )}&winmessage=${urlEncode(args.winMessage)}&pwd`,
+      get(`defaultFlowerLossMessage`)
+    )}&winmessage=${urlEncode(get(`defaultFlowerWinMessage`))}&pwd`,
     true,
     true
   );
