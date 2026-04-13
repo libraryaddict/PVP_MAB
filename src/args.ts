@@ -36,6 +36,10 @@ export const args = Args.create("pvp_mab", "A multi-armed bandit script for pvp"
     (x) => x as Strategy,
     "multi-armed bandit strategy"
   ),
+  ranked: Args.flag({
+    help: "Fight random tougher opponents for +1 swagger and increased fame gain",
+    default: false,
+  }),
   no_optimize: Args.flag({
     help: "Skip the uberpvpoptimizer step",
     default: false,

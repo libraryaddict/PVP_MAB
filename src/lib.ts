@@ -8,6 +8,7 @@ import {
   itemAmount,
   print,
   todayToString,
+  urlEncode,
   use,
   visitUrl,
   xpath,
@@ -186,7 +187,13 @@ export function pvpAttack(attackType: string): string {
   const beforePVPScriptName = get("beforePVPScript");
   if (beforePVPScriptName.length > 0) cliExecute(beforePVPScriptName);
   return visitUrl(
-    `peevpee.php?action=fight&place=fight&ranked=1&stance=${pvpChoice}&attacktype=${attackType}&pwd`
+    `peevpee.php?action=fight&place=fight&ranked=${
+      args.ranked ? 2 : 1
+    }&stance=${pvpChoice}&attacktype=${attackType}&losemessage=${urlEncode(
+      get(`defaultFlowerLossMessage`)
+    )}&winmessage=${urlEncode(get(`defaultFlowerWinMessage`))}&pwd`,
+    true,
+    true
   );
 }
 
