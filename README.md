@@ -23,7 +23,9 @@ It's not advised to use the flag `ranked` to fight tougher opponents for more fa
 You can control the pvp win/loss messages by setting the KoLMafia properties `defaultFlowerWinMessage` and `defaultFlowerLossMessage`.<br/>
 These have no message by default, set them by running `set pref_name=message` in gCLI.<br/>
 
+<b>For example:</b><br/>
 `set defaultFlowerLossMessage=I knew 'ranked' wasn't a good idea!`<br/>
+
 `set defaultFlowerWinMessage=I win so many fights when I don't use 'ranked'!`<br/>
 
 ## Why do I need a Multi-Armed Bandit PVP script?
